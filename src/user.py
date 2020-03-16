@@ -17,6 +17,7 @@ class User:
         result = cursor.execute(query, (username,))
         row = result.fetchone()
         if row:
+            # user = User(row[0], row[1], row[2])
             user = cls(*row)
         else:
             user = None
@@ -50,6 +51,9 @@ class UserRegister(Resource):
 
     def post(self):
         data = UserRegister.parser.parse_args()
+
+        if User.find_by_username(data['username']):
+            return {"message": "A user with that username  already exists"}, 400
 
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
