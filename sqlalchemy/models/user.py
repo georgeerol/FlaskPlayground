@@ -19,7 +19,7 @@ class UserModel(db.Model):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
-        query = "SELECT * FROM {table} WHERE username=?".format(table=cls.TABLE_NAME)
+        query = "SELECT * FROM {table} WHERE username=?".format(table=cls.__tablename__)
         result = cursor.execute(query, (username,))
         row = result.fetchone()
         if row:
@@ -35,7 +35,7 @@ class UserModel(db.Model):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
-        query = "SELECT * FROM {table} WHERE id=?".format(table=cls.TABLE_NAME)
+        query = "SELECT * FROM {table} WHERE id=?".format(table=cls.__tablename__)
         result = cursor.execute(query, (_id,))
         row = result.fetchone()
         if row:
